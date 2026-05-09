@@ -22,12 +22,6 @@ import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
 import net.fabricmc.api.ModInitializer;
-import dev.emi.trinkets.api.TrinketInventory;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import java.util.Map;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -90,31 +84,6 @@ public class TrinketsMain implements ModInitializer, EntityComponentInitializer 
 					)
 				)
 			));
-
-			// 服务器端处理：与饰品槽中物品交互（如打开背包）
-			ServerPlayNetworking.registerGlobalReceiver(TrinketsNetwork.INTERACT_SLOT, (server, player, handler, buf, responseSender) -> {
-				String group = buf.readString();
-				String slot = buf.readString();
-				server.execute(() -> {
-					TrinketsApi.getTrinketComponent(player).ifPresent(comp -> {
-						Map<String, TrinketInventory> groupInv = comp.getInventory().get(group);
-						if (groupInv != null) {
-							TrinketInventory inv = groupInv.get(slot);
-							if (inv != null && inv.size() > 0) {
-								ItemStack trinketStack = inv.getStack(0).copy();
-								if (!trinketStack.isEmpty()) {
-									ItemStack originalHand = player.getMainHandStack().copy();
-									player.getInventory().main.set(player.getInventory().selectedSlot, trinketStack);
-									trinketStack.getItem().use(player.getWorld(), player, Hand.MAIN_HAND);
-									inv.setStack(0, player.getMainHandStack());
-									player.getInventory().main.set(player.getInventory().selectedSlot, originalHand);
-									TrinketsApi.TRINKET_COMPONENT.sync(player);
-								}
-							}
-						}
-					});
-				});
-			});
 	}
 
 	private static int trinketsCommand(CommandContext<ServerCommandSource> context, int amount) {

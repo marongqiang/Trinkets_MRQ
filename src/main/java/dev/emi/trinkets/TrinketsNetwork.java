@@ -7,7 +7,6 @@ public class TrinketsNetwork {
   public static final Identifier SYNC_SLOTS = new Identifier(TrinketsMain.MOD_ID, "sync_slots");
   public static final Identifier SYNC_INVENTORY = new Identifier(TrinketsMain.MOD_ID, "sync_inventory");
   public static final Identifier BREAK = new Identifier(TrinketsMain.MOD_ID, "break");
-  public static final Identifier INTERACT_SLOT = new Identifier(TrinketsMain.MOD_ID, "interact_slot");
 
   private TrinketsNetwork() {
   }

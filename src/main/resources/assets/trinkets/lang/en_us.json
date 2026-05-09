@@ -16,7 +16,5 @@
 	"trinkets.slot.hand.glove": "Glove",
 	"trinkets.slot.offhand.glove": "Glove",
 	"trinkets.slot.hand.ring": "Ring",
-	"trinkets.slot.offhand.ring": "Ring",
-	"key.trinkets.open_slot": "Open Trinkets Slot Item",
-	"category.trinkets": "Trinkets"
+	"trinkets.slot.offhand.ring": "Ring"
 }

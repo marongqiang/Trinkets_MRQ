@@ -16,7 +16,5 @@
 	"trinkets.slot.hand.glove": "手套",
 	"trinkets.slot.offhand.glove": "手套",
 	"trinkets.slot.hand.ring": "戒指",
-	"trinkets.slot.offhand.ring": "戒指",
-	"key.trinkets.open_slot": "打开饰品槽物品",
-	"category.trinkets": "Trinkets"
+	"trinkets.slot.offhand.ring": "戒指"
 }

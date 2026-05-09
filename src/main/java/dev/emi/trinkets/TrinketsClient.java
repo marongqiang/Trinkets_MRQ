@@ -21,13 +21,6 @@ import dev.emi.trinkets.api.SlotType;
 import dev.emi.trinkets.api.Trinket;
 import dev.emi.trinkets.api.TrinketInventory;
 import dev.emi.trinkets.api.TrinketsApi;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import org.lwjgl.glfw.GLFW;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -39,8 +32,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 
 public class TrinketsClient implements ClientModInitializer {
-	public static final KeyBinding TRINKETS_INTERACT_KEY = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-		"key.trinkets.open_slot", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, "category.trinkets" ));
 	public static SlotGroup activeGroup;
 	public static SlotType activeType;
 	public static SlotGroup quickMoveGroup;
@@ -176,20 +167,6 @@ public class TrinketsClient implements ClientModInitializer {
 					});
 				}
 			});
-		});
-
-		// 客户端按键处理：V 键打开背包/与饰品槽物品交互
-		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			while (TRINKETS_INTERACT_KEY.wasPressed()) {
-				if (client.player != null) {
-					String group = TrinketsClient.activeGroup != null ? TrinketsClient.activeGroup.getName() : "chest";
-					String slot = TrinketsClient.activeType != null ? TrinketsClient.activeType.getName() : "back";
-					var buf = PacketByteBufs.create();
-					buf.writeString(group);
-					buf.writeString(slot);
-					ClientPlayNetworking.send(TrinketsNetwork.INTERACT_SLOT, buf);
-				}
-			}
 		});
 	}
 }
