@@ -1,0 +1,27 @@
+{
+  "required": true,
+  "package": "dev.emi.trinkets.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "accessor.ScreenHandlerAccessor",
+    "LivingEntityMixin",
+    "PlayerManagerMixin",
+    "PlayerScreenHandlerMixin",
+    "ServerPlayNetworkHandlerMixin",
+    "ExperienceOrbEntityMixin"
+  ],
+  "client": [
+    "accessor.CreativeSlotAccessor",
+    "accessor.LivingEntityAccessor",
+    "ClickableWidgetMixin",
+    "ClientPlayNetworkHandlerMixin",
+    "CreativeInventoryScreenMixin",
+    "HandledScreenMixin",
+    "InventoryScreenMixin",
+    "ItemStackMixin",
+    "LivingEntityRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
